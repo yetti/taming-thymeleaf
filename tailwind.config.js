@@ -1,14 +1,15 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
   content: [
     'src/main/resources/**/*.html',
     'src/main/resources/**/*.{js,jsx,ts,tsx}',
+    'src/main/resources/**/*.svg',
   ],
   theme: {
     extend: {
       colors: {
-        'taming-thymeleaf-green':'darkseagreen'
+        'taming-thymeleaf-green': 'darkseagreen',
       },
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
@@ -19,6 +20,6 @@ module.exports = {
     require('@tailwindcss/typography'),
     require('@tailwindcss/forms'),
     require('@tailwindcss/line-clamp'),
-    require('@tailwindcss/aspect-ratio')
+    require('@tailwindcss/aspect-ratio'),
   ],
-}
+};
