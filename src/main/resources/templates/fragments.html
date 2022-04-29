@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+  <!-- separator -->
+  <div th:fragment="separator" class="border-dashed border-2 border-red-300 mx-4"></div>
+
+  <!-- menu-item -->
+  <a
+    th:fragment="menu-item(title, link, svgContents)"
+    th:href="${link}"
+    class="bg-gray-100 text-gray-900 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+    <svg th:replace="${svgContents}"></svg>
+    [[${title}]]
+  </a>
+</html>
