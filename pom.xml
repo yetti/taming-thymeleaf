@@ -23,6 +23,7 @@
     <jpearl.version>1.1.0</jpearl.version>
     <testcontainers.version>1.17.1</testcontainers.version>
     <guava.version>31.1-jre</guava.version>
+    <javafaker.version>1.0.2</javafaker.version>
   </properties>
   <dependencies>
     <dependency>
@@ -65,6 +66,11 @@
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
       <version>${guava.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.javafaker</groupId>
+      <artifactId>javafaker</artifactId>
+      <version>${javafaker.version}</version>
     </dependency>
 
     <dependency>

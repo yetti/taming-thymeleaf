@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+  <!--/*@thymesVar id="page" type="org.springframework.data.domain.Page"*/-->
+  <!--/*@thymesVar id="startPage" type="double"*/-->
+  <!--/*@thymesVar id="toUriString" type="java.lang.String"*/-->
+  <div
+    th:fragment="controls(page)"
+    class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6"
+    th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder)}">
+    <div class="flex-1 flex justify-between sm:hidden">
+      <a
+        id="pagination-mobile-previous"
+        th:href="${page.isFirst()} ? 'javascript:void(0)' : ${urlBuilder.fromCurrentRequest().replaceQueryParam('page', page.number).toUriString()}"
+        class="relative inline-flex items-center px-4 py-2 border text-sm font-medium rounded-md"
+        th:classappend="${page.isFirst()} ? 'pointer-events-none text-gray-200 border-gray-200' : 'border-gray-300 text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150'"
+        th:disabled="${page.isFirst()}"
+        th:text="#{pagination.previous}">
+        Previous
+      </a>
+      <a
+        id="pagination-mobile-next"
+        th:href="${page.isLast()} ? 'javascript:void(0)' : ${urlBuilder.fromCurrentRequest().replaceQueryParam('page', page.number + 2).toUriString()}"
+        class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md"
+        th:classappend="${page.isLast() ? 'pointer-events-none text-gray-200 border-gray-200' : 'border-gray-300 text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150'}"
+        th:disabled="${page.isLast()}"
+        th:text="#{pagination.next}">
+        Next
+      </a>
+    </div>
+    <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+      <div>
+        <p id="pagination-summary" class="text-sm text-gray-700">
+          Showing
+          <span class="font-medium" th:text="${(page.getSize() * page.getNumber()) + 1}">1</span>
+          to
+          <span class="font-medium" th:text="${(page.getSize() * page.getNumber()) + page.getNumberOfElements()}">10</span>
+          of
+          <span class="font-medium" th:text="${page.getTotalElements()}">97</span>
+          results
+        </p>
+      </div>
+      <div>
+        <nav
+          class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
+          aria-label="Pagination">
+          <a
+            id="pagination-previous"
+            th:href="${page.isFirst()} ? 'javascript:void(0)' : ${urlBuilder.fromCurrentRequest().replaceQueryParam('page', page.number).toUriString()}"
+            class="relative inline-flex items-center px-2 py-2 rounded-l-md border bg-white text-sm font-medium"
+            th:aria-label="#{pagination.previous}"
+            th:classappend="${page.isFirst()} ? 'pointer-events-none text-gray-200 border-gray-200' : 'border-gray-300 text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150'"
+            th:disabled="${page.isFirst()}">
+            <span class="sr-only">Previous</span>
+            <!-- Heroicon name: solid/chevron-left -->
+            <svg
+              class="h-5 w-5"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true">
+              <path
+                fill-rule="evenodd"
+                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                clip-rule="evenodd" />
+            </svg>
+          </a>
+          <!-- Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" -->
+          <th:block th:with="startPage=${T(java.lang.Math).max(1, page.getNumber() - 3)},endPage=${T(java.lang.Math).min(startPage + 4, page.getTotalPages())}">
+            <a
+              th:each="pageNumber : ${#numbers.sequence(startPage, endPage)}"
+              th:id="${'pagination-page-' + pageNumber}"
+              th:href="${urlBuilder.fromCurrentRequest().replaceQueryParam('page', pageNumber).toUriString()}"
+              class="relative inline-flex items-center px-4 py-2 border text-sm font-medium"
+              th:classappend="${page.number == pageNumber - 1} ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600' : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'"
+              th:attrappend="aria-current=${page.number == pageNumber - 1} ? 'page'">
+              <span th:text="${pageNumber}" th:remove="tag"></span>
+            </a>
+          </th:block>
+          <a
+            id="pagination-next"
+            th:href="${page.isLast()} ? 'javascript:void(0)' : ${urlBuilder.fromCurrentRequest().replaceQueryParam('page', page.number + 2).toUriString()}"
+            class="relative inline-flex items-center px-2 py-2 rounded-r-md border bg-white text-sm font-medium"
+            th:classappend="${page.isLast()} ? 'pointer-events-none text-gray-200 border-gray-200' : 'border-gray-300 text-gray-500 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150'"
+            th:disabled="${page.isLast()}">
+            <span class="sr-only">Next</span>
+            <!-- Heroicon name: solid/chevron-right -->
+            <svg
+              class="h-5 w-5"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true">
+              <path
+                fill-rule="evenodd"
+                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                clip-rule="evenodd" />
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</html>

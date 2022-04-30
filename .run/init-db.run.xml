@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="SpringThymeleafApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-    <option name="ACTIVE_PROFILES" value="local" />
+  <configuration default="false" name="init-db" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" value="local,init-db" />
     <envs>
       <env name="POSTGRES_DATABASE" value="jdbc:postgresql://localhost/tamingthymeleafdb" />
       <env name="POSTGRES_PASSWORD" value="Passw0rd" />
