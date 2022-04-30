@@ -16,7 +16,35 @@
   </div>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
     <div class="py-4">
-      <span>TODO show list of users</span>
+      <div class="mt-8 flex flex-col">
+        <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+            <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+              <table class="min-w-full divide-y divide-gray-300">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th th:replace="fragments/table :: header(title=#{user.name}, primary=true)"></th>
+                    <th th:replace="fragments/table :: header(title=#{user.gender}, hideOnMobile=true)"></th>
+                    <th th:replace="fragments/table :: header(title=#{user.birthday}, hideOnMobile=true)"></th>
+                    <th th:replace="fragments/table :: header(title=#{user.email}, hideOnMobile=true)"></th>
+                    <th th:replace="fragments/table :: header-with-hidden-title(title='Edit')"></th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 bg-white">
+                  <tr th:each="user : ${users}">
+                    <td th:replace="fragments/table :: data(contents=${user.userName.fullName}, primary=true)"></td>
+                    <td th:replace="fragments/table :: data(contents=${user.gender}, hideOnMobile=true)"></td>
+                    <td th:replace="fragments/table :: data(contents=${user.birthday}, hideOnMobile=true)"></td>
+                    <td th:replace="fragments/table :: data(contents=${user.email.asString()}, hideOnMobile=true)"></td>
+                    <td th:replace="fragments/table :: data-with-link(linkText='Edit', linkUrl='#')"></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div th:replace="${users.totalPages > 1} ? ~{fragments/pagination :: controls(page=${users})} : _"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
