@@ -1,4 +1,4 @@
-package io.yetti.learn.controllers;
+package io.yetti.learn.user.web;
 
 import io.yetti.learn.user.UserService;
 import org.springframework.data.domain.Pageable;

@@ -1,16 +1,15 @@
-package io.yetti.learn.controllers;
+package io.yetti.learn.web;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/teams")
-public class TeamController {
+@RequestMapping("/")
+public class RootController {
 
   @GetMapping
-  public String index(Model model) {
-    return "teams/list";
+  public String index() {
+    return "redirect:/users";
   }
 }
